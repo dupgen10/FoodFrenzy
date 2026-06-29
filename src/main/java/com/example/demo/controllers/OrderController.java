@@ -1,18 +1,10 @@
 package com.example.demo.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.example.demo.entities.Orders;
-import com.example.demo.entities.User;
-import com.example.demo.services.OrderServices;
-
-@Controller
-public class OrderController {
-
-}
+/**
+ * OrderController — intentionally empty.
+ * All order logic is handled in AdminController (user-facing orders)
+ * and OrderServices (business logic).
+ *
+ * This class is kept as a placeholder for future order-management features
+ * (e.g., order status updates, order cancellation, order history API).
+ */

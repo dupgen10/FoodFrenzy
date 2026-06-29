@@ -1,5 +1,6 @@
 package com.example.demo.entities;
-import java.util.Date;
+
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -7,90 +8,110 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "orders")
-public class Orders
-{
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int oId;
-	private String oName;
-	private double oPrice;
-	private int oQuantity;
-	private Date orderDate;
-	private double totalAmmout;
-	
-	@ManyToOne
-	@JoinColumn(name="user_u_id")
-	private User user;
+public class Orders {
 
-	public Date getOrderDate() {
-		return orderDate;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int oId;
 
-	public void setOrderDate(Date orderDate) {
-		this.orderDate = orderDate;
-	}
+    @NotBlank(message = "Product name is required")
+    private String oName;
 
-	
+    private double oPrice;
 
-	public int getoId() {
-		return oId;
-	}
+    @Min(value = 1, message = "Quantity must be at least 1")
+    private int oQuantity;
 
-	public void setoId(int oId) {
-		this.oId = oId;
-	}
+    private LocalDateTime orderDate;
 
-	public String getoName() {
-		return oName;
-	}
+    // Fixed typo: totalAmmout -> totalAmount
+    private double totalAmount;
 
-	public void setoName(String oName) {
-		this.oName = oName;
-	}
+    @ManyToOne
+    @JoinColumn(name = "user_u_id")
+    private User user;
 
-	public double getoPrice() {
-		return oPrice;
-	}
+    public LocalDateTime getOrderDate() {
+        return orderDate;
+    }
 
-	public void setoPrice(double oPrice) {
-		this.oPrice = oPrice;
-	}
+    public void setOrderDate(LocalDateTime orderDate) {
+        this.orderDate = orderDate;
+    }
 
-	public int getoQuantity() {
-		return oQuantity;
-	}
+    public int getoId() {
+        return oId;
+    }
 
-	public void setoQuantity(int oQuantity) {
-		this.oQuantity = oQuantity;
-	}
+    public void setoId(int oId) {
+        this.oId = oId;
+    }
 
-	public User getUser() {
-		return user;
-	}
+    public String getoName() {
+        return oName;
+    }
 
-	public void setUser(User user) {
-		this.user = user;
-	}
-	
+    public void setoName(String oName) {
+        this.oName = oName;
+    }
 
-	public double getTotalAmmout() {
-		return totalAmmout;
-	}
+    public double getoPrice() {
+        return oPrice;
+    }
 
-	public void setTotalAmmout(double totalAmmout) {
-		this.totalAmmout = totalAmmout;
-	}
+    public void setoPrice(double oPrice) {
+        this.oPrice = oPrice;
+    }
 
-	@Override
-	public String toString() {
-		return "Orders [oId=" + oId + ", oName=" + oName + ", oPrice=" + oPrice + ", oQuantity=" + oQuantity
-				+ ", orderDate=" + orderDate + ", totalAmmout=" + totalAmmout + ", user=" + user + "]";
-	}
+    public int getoQuantity() {
+        return oQuantity;
+    }
 
+    public void setoQuantity(int oQuantity) {
+        this.oQuantity = oQuantity;
+    }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public double getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(double totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
+    // Kept for backward compat with any existing column references
+    /** @deprecated Use {@link #getTotalAmount()} */
+    @Deprecated
+    public double getTotalAmmout() {
+        return totalAmount;
+    }
+
+    /** @deprecated Use {@link #setTotalAmount(double)} */
+    @Deprecated
+    public void setTotalAmmout(double totalAmmout) {
+        this.totalAmount = totalAmmout;
+    }
+
+    @Override
+    public String toString() {
+        // 'user' intentionally excluded to prevent infinite recursion
+        // (Orders->User->Orders->...)
+        return "Orders [oId=" + oId + ", oName=" + oName + ", oPrice=" + oPrice
+                + ", oQuantity=" + oQuantity + ", orderDate=" + orderDate
+                + ", totalAmount=" + totalAmount + "]";
+    }
 }

@@ -2,8 +2,9 @@ package com.example.demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
-@SpringBootApplication(exclude = SecurityAutoConfiguration.class)
+
+// Spring Security is enabled — do NOT exclude SecurityAutoConfiguration
+@SpringBootApplication
 public class FoodFrenzyApplication {
 
 	public static void main(String[] args) {

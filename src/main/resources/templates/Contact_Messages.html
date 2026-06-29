@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Contact Messages : ADMIN</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="" th:href="@{/css/Admin_page.css}" />
+    <style>
+        .messages {
+            width: 80%;
+            margin: 20px auto;
+        }
+        .messages table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .messages th, .messages td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+        .messages th {
+            background-color: #f4f4f4;
+        }
+        .unread {
+            font-weight: bold;
+            background-color: #e6f7ff;
+        }
+    </style>
+</head>
+
+<body>
+    <a class="back" href="/admin/services">Back to Dashboard</a>
+    <center>
+        <section class="messages">
+            <h2>Contact Form Messages (<span th:text="${unread}">0</span> unread)</h2>
+            <table>
+                <tr>
+                    <th>Date</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Subject</th>
+                    <th>Message</th>
+                    <th>Status</th>
+                </tr>
+                <tr th:each="msg : ${messages}" th:classappend="${!msg.read} ? 'unread' : ''">
+                    <td th:text="${#temporals.format(msg.submittedAt, 'dd-MMM-yyyy HH:mm')}"></td>
+                    <td th:text="${msg.name}"></td>
+                    <td th:text="${msg.email}"></td>
+                    <td th:text="${msg.subject}"></td>
+                    <td th:text="${msg.message}"></td>
+                    <td th:text="${msg.read ? 'Read' : 'New'}"></td>
+                </tr>
+            </table>
+        </section>
+    </center>
+</body>
+</html>

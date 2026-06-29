@@ -56,7 +56,10 @@
                 </div>
             </div>
             <div class="contact-col">
-                <form action="" method="post" enctype="text/plain">
+                <form th:action="@{/contact/submit}" method="post">
+                    <div th:if="${param.success}" style="color: green; font-weight: bold; margin-bottom: 15px;">
+                        Your message has been sent successfully!
+                    </div>
                     <input type="text" name="name" placeholder="Enter your name" required>
                     <input type="email" name="email" placeholder="Enter email address" required>
                     <input type="text" name="subject" placeholder="Enter subject" required>
